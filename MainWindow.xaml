@@ -1,0 +1,209 @@
+<Window x:Class="BITMasterTask.MainWindow"
+        Icon="Resources/i.ico"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BITMasterTask"
+        mc:Ignorable="d"
+        Title="Справочники"
+        Width="1100" Height="700"
+        MinWidth="1000" MinHeight="650"
+        WindowStartupLocation="CenterScreen">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Шапка -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,16">
+                <Border Width="32" Height="32" CornerRadius="8"
+                        Background="{StaticResource PrimaryBrush}"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="BM"
+                               Foreground="White"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                </Border>
+                <StackPanel Margin="10,0,0,0">
+                    <TextBlock Text="BIT Master"
+                               FontSize="18"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="Справочники машин, водителей и экипажей"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Машины -->
+            <Border Grid.Row="1"
+                    Background="{StaticResource SurfaceBrush}"
+                    CornerRadius="12"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderBrushColor}"
+                    BorderThickness="1"
+                    Margin="0,0,0,16">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Справочник: Машины" FontSize="16" FontWeight="SemiBold" />
+                                <TextBlock Text="Добавляйте и редактируйте автомобили. Эти записи используются в экипажах."
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       Text="{Binding Cars.Count, StringFormat=Записей: {0}}" />
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button Content="＋ Добавить машину" Click="AddCar_Click" />
+                            <Button Content="Изменить" Style="{StaticResource SecondaryButtonStyle}" Click="EditCar_Click" />
+                            <Button Content="Удалить" Style="{StaticResource DangerButtonStyle}" Click="DeleteCar_Click" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Top"
+                               Text="Таблица машин"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Margin="0,0,0,6" />
+                    <DataGrid x:Name="CarsGrid"
+                              ItemsSource="{Binding Cars}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              CanUserAddRows="False"
+                              Margin="0,8,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <!-- Водители -->
+            <Border Grid.Row="2"
+                    Background="{StaticResource SurfaceBrush}"
+                    CornerRadius="12"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderBrushColor}"
+                    BorderThickness="1"
+                    Margin="0,0,0,16">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Справочник: Водители" FontSize="16" FontWeight="SemiBold" />
+                                <TextBlock Text="Фамилия, имя и отчество. Эти записи используются в экипажах."
+                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       Text="{Binding Drivers.Count, StringFormat=Записей: {0}}" />
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button Content="＋ Добавить водителя" Click="AddDriver_Click" />
+                            <Button Content="Изменить" Style="{StaticResource SecondaryButtonStyle}" Click="EditDriver_Click" />
+                            <Button Content="Удалить" Style="{StaticResource DangerButtonStyle}" Click="DeleteDriver_Click" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Top"
+                               Text="Таблица водителей"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Margin="0,0,0,6" />
+                    <DataGrid x:Name="DriversGrid"
+                              ItemsSource="{Binding Drivers}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              CanUserAddRows="False"
+                              Margin="0,8,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="*" />
+                            <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" />
+                            <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <!-- Экипажи -->
+            <Border Grid.Row="3"
+                    Background="{StaticResource SurfaceBrush}"
+                    CornerRadius="12"
+                    Padding="16"
+                    BorderBrush="{StaticResource BorderBrushColor}"
+                    BorderThickness="1">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Справочник: Экипажи" FontSize="16" FontWeight="SemiBold" />
+                                <TextBlock Text="Экипаж = водитель + машина. Если снять «Активен», запись будет удалена автоматически через ~30 секунд."
+                                           Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       Text="{Binding Crews.Count, StringFormat=Записей: {0}}" />
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button Content="＋ Добавить экипаж" Click="AddCrew_Click" />
+                            <Button Content="Изменить" Style="{StaticResource SecondaryButtonStyle}" Click="EditCrew_Click" />
+                            <Button Content="Удалить" Style="{StaticResource DangerButtonStyle}" Click="DeleteCrew_Click" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Top"
+                               Text="Таблица экипажей"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Margin="0,0,0,6" />
+                    <DataGrid x:Name="CrewsGrid"
+                              ItemsSource="{Binding Crews}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              CanUserAddRows="False"
+                              Margin="0,8,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название экипажа" Binding="{Binding Name}" Width="*" />
+                            <DataGridTextColumn Header="Машина" Binding="{Binding CarName}" Width="*" />
+                            <DataGridTextColumn Header="Водитель" Binding="{Binding DriverName}" Width="*" />
+                            <DataGridTextColumn Header="Удаление через (сек)" Binding="{Binding AutoDeleteIn}" Width="150">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="Активен" Binding="{Binding Active}" Width="80" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>

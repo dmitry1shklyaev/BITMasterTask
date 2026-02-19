@@ -1,0 +1,51 @@
+<Window x:Class="BITMasterTask.CrewEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BITMasterTask"
+        Title="Экипаж" Height="260" Width="420"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        WindowStyle="ToolWindow">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Название:" VerticalAlignment="Center"
+                   Foreground="{StaticResource TextSecondaryBrush}" />
+        <TextBox Grid.Column="1" Margin="5,0,0,5"
+                 Text="{Binding Crew.Name, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="1" Text="Машина:" VerticalAlignment="Center"
+                   Foreground="{StaticResource TextSecondaryBrush}" />
+        <ComboBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,5"
+                  ItemsSource="{Binding Cars}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding Crew.CarId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="2" Text="Водитель:" VerticalAlignment="Center"
+                   Foreground="{StaticResource TextSecondaryBrush}" />
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,0,0,5"
+                  ItemsSource="{Binding Drivers}"
+                  DisplayMemberPath="FullName"
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding Crew.DriverId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0,16,0,0">
+            <CheckBox Content="Активен" Margin="0,0,20,0"
+                      IsChecked="{Binding Crew.Active, Mode=TwoWay}" VerticalAlignment="Center" />
+            <Button Content="ОК" Width="80" Margin="0,0,5,0" IsDefault="True" Click="Ok_Click" />
+            <Button Content="Отмена" Width="80" IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>
+
